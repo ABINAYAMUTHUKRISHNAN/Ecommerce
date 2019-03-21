@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import Mainpage from "../Components/Mainpage";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import ShopContext from "./shop-context";
 import Contents from "../Components/Contents";
@@ -12,11 +14,13 @@ class GlobalState extends Component {
         pic:
           "https://i.pinimg.com/originals/7a/90/be/7a90be9e37ec38da9bf22f076ffa4fbb.png"
       }
-      //   { id: "p2", title: "Harry Potter 3", price: 9.99 },
-      //   { id: "p3", title: "Used plastic bottle", price: 0.99 },
-      //   { id: "p4", title: "Half-dried plant", price: 2.99 }
     ],
-    cart: []
+    cart: [],
+    success: false
+  };
+
+  checkStatus = success => {
+    console.log(success);
   };
 
   addProductToCart = product => {
@@ -69,12 +73,12 @@ class GlobalState extends Component {
             products: this.state.products,
             cart: this.state.cart,
             addProductToCart: this.addProductToCart,
-            removeProductFromCart: this.removeProductFromCart
+            removeProductFromCart: this.removeProductFromCart,
+            login: this.state.login
           }}
         >
           {this.props.children}
         </ShopContext.Provider>
-        {/* // <Contents onadd={...this.addProductToCart.bind(this)} /> */}
       </div>
     );
   }

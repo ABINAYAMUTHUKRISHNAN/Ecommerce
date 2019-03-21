@@ -40,6 +40,10 @@ p {
 .column {
   padding: 10;
 }
+.login {
+  background-image: url("https://cbsla.files.wordpress.com/2014/08/img_92741111.jpg");
+}
+
 .ant-col-lg-6,
 .ant-col-lg-8,
 .ant-col-lg-12 {
