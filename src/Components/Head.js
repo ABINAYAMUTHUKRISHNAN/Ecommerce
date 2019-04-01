@@ -22,11 +22,13 @@ class Head extends Component {
         <Header style={{ backgroundColor: "#ffffff00" }}>
           <Row>
             <Col span={2}>
-              <img
-                src="https://files.gamebanana.com/img/ico/sprays/linkinpark.png"
-                width="50px"
-                height="50px"
-              />
+              <NavLink to="/Mainpage">
+                <img
+                  src="https://files.gamebanana.com/img/ico/sprays/linkinpark.png"
+                  width="50px"
+                  height="50px"
+                />
+              </NavLink>
             </Col>
             <Col span={22}>
               <Menu

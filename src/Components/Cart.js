@@ -1,31 +1,22 @@
 import React, { Component } from "react";
-import ShopContext from "../context/shop-context";
 import Head from "./Head";
 import { Button, Icon, Col, Divider, Card } from "antd";
+import { connect } from "react-redux";
+import { removeProductFromCart } from "../store/actions";
 const { Meta } = Card;
 
 class CartPage extends Component {
-  static contextType = ShopContext;
-
-  componentDidMount() {
-    console.log(this.context);
-  }
-
   render() {
     return (
       <React.Fragment>
-        <Head
-          cartItemNumber={this.context.cart.reduce((count, curItem) => {
-            return count + curItem.quantity;
-          }, 0)}
-        />
+        <Head cartItemNumber={this.props.cartItemCount} />
         <main className="cart">
-          {this.context.cart.length <= 0 && <p>No Item in the Cart!</p>}
+          {this.props.cartItems.length <= 0 && <p>No Item in the Cart!</p>}
           <ul>
-            {this.context.cart.map(cartItem => (
+            {this.props.cartItems.map(cartItem => (
               <Card
                 key={cartItem.id}
-                style={{ width: 1050, height: "fit-content" }}
+                style={{ width: 1100, height: "fit-content", margin: 20 }}
               >
                 <Col span={3}>
                   <img src={cartItem.pic} width="100" />
@@ -39,7 +30,7 @@ class CartPage extends Component {
                 </Col>
                 <div className="font">
                   <Col span={1} />
-                  <Col span={4}>15-02-2019 at 8.30am</Col>
+                  <Col span={4}>Quantity({cartItem.quantity})</Col>
                   <Col span={1}>
                     <Divider type="vertical" />
                   </Col>
@@ -58,12 +49,12 @@ class CartPage extends Component {
                   <div>
                     <Col span={2}>
                       <Button
-                        onClick={this.context.removeProductFromCart.bind(
+                        onClick={this.props.removeProductFromCart.bind(
                           this,
                           cartItem.id
                         )}
                       >
-                        Remove from Cart
+                        Remove
                       </Button>
                     </Col>
                   </div>
@@ -76,4 +67,22 @@ class CartPage extends Component {
     );
   }
 }
-export default CartPage;
+const mapStateToProps = state => {
+  return {
+    cartItems: state.cart,
+    cartItemCount: state.cart.reduce((count, curItem) => {
+      return count + curItem.quantity;
+    }, 0)
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    removeProductFromCart: id => dispatch(removeProductFromCart(id))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CartPage);

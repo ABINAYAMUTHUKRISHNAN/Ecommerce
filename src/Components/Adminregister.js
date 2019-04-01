@@ -17,11 +17,6 @@ class Adminregister extends Component {
       if (!err) {
         console.log("Received values of form: ", values);
       }
-      if (values) {
-        this.setState({
-          success: true
-        });
-      }
     });
   };
   handlechange = name => event => {
